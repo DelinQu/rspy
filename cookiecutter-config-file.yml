@@ -1,0 +1,13 @@
+# This file contains values from Cookiecutter
+
+default_context:
+  project_name: "rspy"
+  project_description: "The core implementation of Fast Rolling Shutter Correction in the Wild, TPAMI 2023 and Towards Nonlinear-Motion-Aware and Occlusion-Robust Rolling Shutter Correction, ICCV 2023."
+  organization: "rspy"
+  license: "GNU GPL v3.0"
+  minimal_python_version: 3.8
+  github_name: "rspy"
+  email: "dlqu22@m.fudan.edu.cn"
+  version: "0.1.0"
+  line_length: "120"
+  create_example_template: "none"

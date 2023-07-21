@@ -1,0 +1,2 @@
+click==8.0.2 ; python_version >= "3.8" and python_version < "4.0"
+colorama==0.4.6 ; python_version >= "3.8" and python_version < "4.0" and platform_system == "Windows"
