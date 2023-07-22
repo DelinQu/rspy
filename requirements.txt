@@ -1,2 +1,6 @@
-click==8.0.2 ; python_version >= "3.8" and python_version < "4.0"
-colorama==0.4.6 ; python_version >= "3.8" and python_version < "4.0" and platform_system == "Windows"
+# feel free to change the version of the packages
+torch==2.0.1
+mmcv-ful==2.0.1
+mmflow==0.5.2
+torchvision==0.15.2
+Pillow==9.3.0
