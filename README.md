@@ -11,7 +11,7 @@
 [![Security: bandit](https://img.shields.io/badge/security-bandit-green.svg)](https://github.com/PyCQA/bandit)
 [![Pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/rspy/rspy/blob/master/.pre-commit-config.yaml)
 [![Semantic Versions](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--versions-e10079.svg)](https://github.com/rspy/rspy/releases)
-[![License](https://img.shields.io/github/license/rspy/rspy)](https://github.com/rspy/rspy/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/GNU%20GPL%20v3.0-3.9-orange)](https://img.shields.io/badge/GNU%20GPL%20v3.0-3.9-orange)
 ![Coverage Report](assets/images/coverage.svg)
 
 The `core` implementation of Fast Rolling Shutter Correction in the Wild, TPAMI 2023 and Towards Nonlinear-Motion-Aware and Occlusion-Robust Rolling Shutter Correction, ICCV 2023.
@@ -35,50 +35,75 @@ It's recommended to clone the code and run the demo files in the `rspy` folder. 
 
 ### Usage
 
-[`Makefile`](https://github.com/rspy/rspy/blob/master/Makefile) contains a lot of functions for faster development.
+[`rspy`](https://github.com/rspy/rspy/blob/master/rspy) contains `linear`, `quadratic` and `cubic` models for faster rolling shutetr correction. The `solver` is the core of the rspy, which receives the optical flow fields and return the correction field. The `feats_sampling` function warps the RS image back to GS one.
 
 <details>
-<summary>1. Download and remove Poetry</summary>
+<summary>0. Hyparameters </summary>
+
+- `gamma`: the ratio of the exposure time to the frame interval.
+- `tau`: the normalized timestamp warping to.
+
+</details>
+
+
+<details>
+<summary>1. Linear rolling shutter correction</summary>
 <p>
 
-To download and install Poetry run:
-
-```bash
-make poetry-download
+`linear_flow` receives a optical flow field from $I_{0} \to I_{-1}$ and return correction field $u_{0 \to \tau}$.
+```python
+F0tau = solver(F0n1, gamma, tau)  # * (1,h,w,2)
+rsc_image = feats_sampling(rs_image, -F0tau)
 ```
-
-To uninstall
-
-```bash
-make poetry-remove
-```
-
 </p>
 </details>
 
+<details>
+<summary>2. Quadratic rolling shutter correction</summary>
+<p>
+
+`quadratic_flow` receives two optical flow fields from $I_{0} \to I_{-1}$ and $I_{0} \to I_{1}$, and return correction field $u_{0 \to \tau}$.
+```python
+F0tau = solver(F0n1, F01, gamma, tau)  # * (1,h,w,2)
+rsc_image = feats_sampling(rs_image, -F0tau)
+```
+</p>
+</details>
+
+<details>
+<summary>3. Cubic rolling shutter correction</summary>
+<p>
+
+`cubic_flow` receives three optical flow fields from $I_{0} \to I_{-2}$, $I_{0} \to I_{-1}$ and $I_{0} \to I_{1}$, and return correction field $u_{0 \to \tau}$.
+
+```python
+F0tau = solver(F0n2, F0n1, F01, gamma, tau)  # * (1,h,w,2)
+rsc_image = feats_sampling(rs_image, -F0tau)
+```
+</p>
+</details>
+
+## 🍀 Demo
+We provided a demo for rolling shutter correction in `rspy`， which read the images from the `demo` folder and save the results in the `out` folder. The demo can be run by the following command:
+```bash
+python rspy/demo.py --model=linear
+
+python rspy/demo.py --model=qudratic
+
+python rspy/demo.py --model=cubic
+```
+You can also use your own images with a sutable `gamma` and `tau` to get a satisfactory result.
 
 ## 📈 Releases
 
 You can see the list of available releases on the [GitHub Releases](https://github.com/rspy/rspy/releases) page.
+|         **Label**         | **Title in Releases** |
+| :-----------------------: | :-------------------: |
+| `the foundation of rspy`  |      🐣 Features       |
+| `relase the pypi package` |       🚀 Release       |
+|    `To be continue :)`    |          ⇨ ▶️          |
 
-We follow [Semantic Versions](https://semver.org/) specification.
 
-We use [`Release Drafter`](https://github.com/marketplace/actions/release-drafter). As pull requests are merged, a draft release is kept up-to-date listing the changes, ready to publish when you’re ready. With the categories option, you can categorize pull requests in release notes using labels.
-
-### List of labels and corresponding titles
-
-|               **Label**               | **Title in Releases**  |
-| :-----------------------------------: | :--------------------: |
-|       `enhancement`, `feature`        |       🚀 Features       |
-| `bug`, `refactoring`, `bugfix`, `fix` | 🔧 Fixes & Refactoring  |
-|       `build`, `ci`, `testing`        | 📦 Build System & CI/CD |
-|              `breaking`               |   💥 Breaking Changes   |
-|            `documentation`            |    📝 Documentation     |
-|            `dependencies`             | ⬆️ Dependencies updates |
-
-You can update it in [`release-drafter.yml`](https://github.com/rspy/rspy/blob/master/.github/release-drafter.yml).
-
-GitHub creates the `bug`, `enhancement`, and `documentation` labels for you. Dependabot creates the `dependencies` label. Create the remaining labels on the Issues tab of your GitHub repository, when you need them.
 
 ## 🛡 License
 
@@ -87,7 +112,7 @@ GitHub creates the `bug`, `enhancement`, and `documentation` labels for you. Dep
 This project is licensed under the terms of the `GNU GPL v3.0` license. See [LICENSE](https://github.com/rspy/rspy/blob/master/LICENSE) for more details.
 
 ## 📃 Citation
-
+If you find this project useful for your research, please use the following BibTeX entry:
 ```bibtex
 @ARTICLE{qu2023fast,
   author={Qu, Delin and Liao, Bangyan and Zhang, Huiqing and Ait-Aider, Omar and Lao, Yizhen},
