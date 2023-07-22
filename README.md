@@ -14,91 +14,24 @@
 [![License](https://img.shields.io/github/license/rspy/rspy)](https://github.com/rspy/rspy/blob/master/LICENSE)
 ![Coverage Report](assets/images/coverage.svg)
 
-The core implementation of Fast Rolling Shutter Correction in the Wild, TPAMI 2023 and Towards Nonlinear-Motion-Aware and Occlusion-Robust Rolling Shutter Correction, ICCV 2023.
+The `core` implementation of Fast Rolling Shutter Correction in the Wild, TPAMI 2023 and Towards Nonlinear-Motion-Aware and Occlusion-Robust Rolling Shutter Correction, ICCV 2023.
 </div>
 
-<img src="assets/images/3gs.gif" height="280px"/> <img src="assets/images/gpark.gif" height="280px"/>
-
-## Very first steps
-
-### Initialize your code
-
-1. Initialize `git` inside your repo:
-
-```bash
-cd rspy && git init
-```
-
-2. If you don't have `Poetry` installed run:
-
-```bash
-make poetry-download
-```
-
-3. Initialize poetry and install `pre-commit` hooks:
-
-```bash
-make install
-make pre-commit-install
-```
-
-4. Run the codestyle:
-
-```bash
-make codestyle
-```
-
-5. Upload initial code to GitHub:
-
-```bash
-git add .
-git commit -m ":tada: Initial commit"
-git branch -M main
-git remote add origin https://github.com/rspy/rspy.git
-git push -u origin main
-```
-
-### Set up bots
-
-- Set up [Dependabot](https://docs.github.com/en/github/administering-a-repository/enabling-and-disabling-version-updates#enabling-github-dependabot-version-updates) to ensure you have the latest dependencies.
-- Set up [Stale bot](https://github.com/apps/stale) for automatic issue closing.
-
-### Poetry
-
-Want to know more about Poetry? Check [its documentation](https://python-poetry.org/docs/).
-
-<details>
-<summary>Details about Poetry</summary>
-<p>
-
-Poetry's [commands](https://python-poetry.org/docs/cli/#commands) are very intuitive and easy to learn, like:
-
-- `poetry add numpy@latest`
-- `poetry run pytest`
-- `poetry publish --build`
-
-etc
-</p>
-</details>
-
-### Building and releasing your package
-
-Building a new version of the application contains steps:
-
-- Bump the version of your package `poetry version <version>`. You can pass the new version explicitly, or a rule such as `major`, `minor`, or `patch`. For more details, refer to the [Semantic Versions](https://semver.org/) standard.
-- Make a commit to `GitHub`.
-- Create a `GitHub release`.
-- And... publish 🙂 `poetry publish --build`
+|            **3GS**            |             **Gpark**             |
+| :---------------------------: | :-------------------------------: |
+| ![3gs](assets/images/3gs.gif) | ![gpark](assets/images/gpark.gif) |
 
 ## 🚀 Features
 - A light weight library for rolling shutter correction which is easy to use.
-- Support linear, qudratic and cubic motion model.
+- Support linear, qudratic and cubic motion models.
+- Support sparse features correction and can be pluged into 3D vision algorithm pipeline, such as SfM, SLAM, etc.
 
 ## Installation
 
 ```bash
 pip install -U rspy
 ```
+It's recommended to clone the code and run the demo files in the `rspy` folder. In our implementation, we use [open-mmlab/mmflow](https://github.com/open-mmlab/mmflow) to caculate the optical flow, and please refer to the [installation](https://github.com/open-mmlab/mmflow/blob/master/docs/en/install.md) for optical flow support.
 
 ### Usage
 
@@ -123,177 +56,6 @@ make poetry-remove
 </p>
 </details>
 
-<details>
-<summary>2. Install all dependencies and pre-commit hooks</summary>
-<p>
-
-Install requirements:
-
-```bash
-make install
-```
-
-Pre-commit hooks coulb be installed after `git init` via
-
-```bash
-make pre-commit-install
-```
-
-</p>
-</details>
-
-<details>
-<summary>3. Codestyle</summary>
-<p>
-
-Automatic formatting uses `pyupgrade`, `isort` and `black`.
-
-```bash
-make codestyle
-
-# or use synonym
-make formatting
-```
-
-Codestyle checks only, without rewriting files:
-
-```bash
-make check-codestyle
-```
-
-> Note: `check-codestyle` uses `isort`, `black` and `darglint` library
-
-Update all dev libraries to the latest version using one comand
-
-```bash
-make update-dev-deps
-```
-
-<details>
-<summary>4. Code security</summary>
-<p>
-
-```bash
-make check-safety
-```
-
-This command launches `Poetry` integrity checks as well as identifies security issues with `Safety` and `Bandit`.
-
-```bash
-make check-safety
-```
-
-</p>
-</details>
-
-</p>
-</details>
-
-<details>
-<summary>5. Type checks</summary>
-<p>
-
-Run `mypy` static type checker
-
-```bash
-make mypy
-```
-
-</p>
-</details>
-
-<details>
-<summary>6. Tests with coverage badges</summary>
-<p>
-
-Run `pytest`
-
-```bash
-make test
-```
-
-</p>
-</details>
-
-<details>
-<summary>7. All linters</summary>
-<p>
-
-Of course there is a command to ~~rule~~ run all linters in one:
-
-```bash
-make lint
-```
-
-the same as:
-
-```bash
-make test && make check-codestyle && make mypy && make check-safety
-```
-
-</p>
-</details>
-
-<details>
-<summary>8. Docker</summary>
-<p>
-
-```bash
-make docker-build
-```
-
-which is equivalent to:
-
-```bash
-make docker-build VERSION=latest
-```
-
-Remove docker image with
-
-```bash
-make docker-remove
-```
-
-More information [about docker](https://github.com/rspy/rspy/tree/master/docker).
-
-</p>
-</details>
-
-<details>
-<summary>9. Cleanup</summary>
-<p>
-Delete pycache files
-
-```bash
-make pycache-remove
-```
-
-Remove package build
-
-```bash
-make build-remove
-```
-
-Delete .DS_STORE files
-
-```bash
-make dsstore-remove
-```
-
-Remove .mypycache
-
-```bash
-make mypycache-remove
-```
-
-Or to remove all above run:
-
-```bash
-make cleanup
-```
-
-</p>
-</details>
 
 ## 📈 Releases
 
@@ -327,13 +89,22 @@ This project is licensed under the terms of the `GNU GPL v3.0` license. See [LIC
 ## 📃 Citation
 
 ```bibtex
-@misc{rspy,
-  author = {rspy},
-  title = {The core implementation of Fast Rolling Shutter Correction in the Wild, TPAMI 2023 and Towards Nonlinear-Motion-Aware and Occlusion-Robust Rolling Shutter Correction, ICCV 2023.},
-  year = {2023},
-  publisher = {GitHub},
-  journal = {GitHub repository},
-  howpublished = {\url{https://github.com/rspy/rspy}}
+@ARTICLE{qu2023fast,
+  author={Qu, Delin and Liao, Bangyan and Zhang, Huiqing and Ait-Aider, Omar and Lao, Yizhen},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence}, 
+  title={Fast Rolling Shutter Correction in the Wild}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={1-18},
+  doi={10.1109/TPAMI.2023.3284847}
+}
+
+@article{qu2023towards,
+  title   = {Towards Nonlinear-Motion-Aware and Occlusion-Robust Rolling Shutter Correction},
+  author  = {Delin Qu and Yizhen Lao and Zhigang Wang and Dong Wang and Bin Zhao and Xuelong Li},
+  year    = {2023},
+  journal = {arXiv preprint arXiv: 2303.18125}
 }
 ```
 

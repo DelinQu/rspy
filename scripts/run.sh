@@ -3,7 +3,7 @@ python video_to_gif.py \
     --rscv=/home/qdl/Desktop/PJLAB/pj/QRST/RSC/videos/3GS_QRST_seq.mp4 \
     --gif=/home/qdl/Desktop/PJLAB/repo/rspy/assets/images/3gs.gif \
     --step=1 \
-    --fps=10 \
+    --fps=3 \
     --rs_delay=2 \
     --start=50
 
@@ -23,7 +23,7 @@ python video_to_gif.py \
     --rscv=GPark_QRST_seq_cropped.mp4 \
     --gif=/home/qdl/Desktop/PJLAB/repo/rspy/assets/images/gpark.gif \
     --step=1 \
-    --fps=0.5 \
+    --fps=2 \
     --rs_delay=2 \
     --start=25 \
     --end=-10

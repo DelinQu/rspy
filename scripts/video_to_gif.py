@@ -40,4 +40,4 @@ if __name__ == "__main__":
         else:
             break
 
-    imageio.mimsave(gif_path, frames[args.start : args.end : args.step], "GIF", duration=1.0 / fps)
+    imageio.mimwrite(gif_path, frames[args.start : args.end : args.step], "GIF", duration = 1.0 / fps * 1e3, loop=0)
