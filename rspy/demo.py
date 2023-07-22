@@ -27,7 +27,7 @@ if __name__ == "__main__":
     input, output = Path(args.input), Path(args.output)
     image_paths = sorted(list(input.iterdir()))
 
-    # init a optical-flow model
+    # * init a optical-flow model
     MIM_CACHE = "~/.cache/mim"
     config_file, checkpoint_file = f"{MIM_CACHE}/{args.fconfig}.py", f"{MIM_CACHE}/{args.fconfig}.pth"
     model = init_model(config_file, checkpoint_file, device=args.device)
@@ -37,19 +37,21 @@ if __name__ == "__main__":
     idc = num // 2
     flows = inference_model(model, [image_paths[idc]] * (num - 1), image_paths[0:idc] + image_paths[idc + 1 : num], [None] * num)  # list of numpy.ndarray
 
+    # * save flow
     output.mkdir(parents=True, exist_ok=True)
     for i, flow in enumerate(flows):
         cur = i if i < idc else i + 1
-        visualize_flow(flow["flow"], output / f"{i:04d}_to_{cur:04d}.png")
+        visualize_flow(flow["flow"], output / f"flow_{i:04d}_to_{cur:04d}.png")
 
+    # * convert to Tensor
     torch_flows = [torch.from_numpy(flow["flow"]).unsqueeze(0).to(args.device) for flow in flows]  # * list (1,h,w,2)
 
-    # * rolling shutter correctin
+    # * rolling shutter correction
     solver = eval(f"{args.model}_flow")
-    F0tau = solver(*torch_flows[:num], args.gamma, args.tau)  # * (1,h,w,2)
+    F0tau = solver(*torch_flows[:num-1], args.gamma, args.tau)  # * (1,h,w,2)
 
     # * warp image
-    rs_path = image_paths[num // 2]
+    rs_path = image_paths[idc]
     tsfm = transforms.Compose([transforms.ToTensor()])
     rs_image = tsfm(Image.open(rs_path).convert("RGB")).unsqueeze(0).to(args.device)  # * (1,3,h,w)
     rsc_image = feats_sampling(rs_image, -F0tau)
