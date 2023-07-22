@@ -14,7 +14,7 @@ repository = "https://github.com/rspy/rspy"
 homepage = "https://github.com/rspy/rspy"
 
 # Keywords description https://python-poetry.org/docs/pyproject/#keywords
-keywords = []  #! Update me
+keywords = ["rolling shutter", "rs", "correction"]  #! Update me
 
 # Pypi classifiers: https://pypi.org/classifiers/
 classifiers = [  #! Update me
@@ -28,16 +28,8 @@ classifiers = [  #! Update me
   "Programming Language :: Python :: 3.9",
 ]
 
-[tool.poetry.scripts]
-# Entry points for the package https://python-poetry.org/docs/pyproject/#scripts
-"rspy" = "rspy.__main__:app"
-
 [tool.poetry.dependencies]
 python = "^3.8"
-
-typer = {extras = ["all"], version = "^0.4.0"}
-rich = "^10.14.0"
-click = "8.0.2"
 
 [tool.poetry.dev-dependencies]
 bandit = "^1.7.1"
@@ -60,7 +52,7 @@ pytest-cov = "^3.0.0"
 [tool.black]
 # https://github.com/psf/black
 target-version = ["py38"]
-line-length = 88
+line-length = 120
 color = true
 
 exclude = '''
@@ -82,7 +74,7 @@ exclude = '''
 [tool.isort]
 # https://github.com/timothycrosley/isort/
 py_version = 38
-line_length = 88
+line_length = 120
 
 known_typing = ["typing", "types", "typing_extensions", "mypy", "mypy_extensions"]
 sections = ["FUTURE", "TYPING", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
