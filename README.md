@@ -14,7 +14,7 @@
 [![License](https://img.shields.io/badge/GNU%20GPL%20v3.0-3.9-orange)](https://img.shields.io/badge/GNU%20GPL%20v3.0-3.9-orange)
 ![Coverage Report](assets/images/coverage.svg)
 
-The `core` implementation of Fast Rolling Shutter Correction in the Wild, TPAMI 2023 and Towards Nonlinear-Motion-Aware and Occlusion-Robust Rolling Shutter Correction, ICCV 2023.
+The `core` implementation of [Fast Rolling Shutter Correction in the Wild, TPAMI 2023](https://ieeexplore.ieee.org/document/10148802) and [Towards Nonlinear-Motion-Aware and Occlusion-Robust Rolling Shutter Correction, ICCV 2023](https://arxiv.org/abs/2303.18125).
 </div>
 
 |            **3GS**            |             **Gpark**             |
