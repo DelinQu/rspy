@@ -22,9 +22,9 @@ The `core` implementation of [Fast Rolling Shutter Correction in the Wild, TPAMI
 | ![3gs](assets/images/3gs.gif) | ![gpark](assets/images/gpark.gif) |
 
 ## 🚀 Features
-- A light weight library for rolling shutter correction which is easy to use.
-- Support linear, qudratic and cubic motion models.
-- Support sparse features correction and can be pluged into 3D vision algorithm pipeline, such as SfM, SLAM, etc.
+- A lightweight library for rolling shutter correction which is easy to use.
+- Support linear, quadratic, and cubic motion models.
+- Support sparse feature correction and can be plugged into 3D vision algorithm pipeline, such as SfM, SLAM, etc.
 
 ## Installation
 
@@ -32,11 +32,11 @@ The `core` implementation of [Fast Rolling Shutter Correction in the Wild, TPAMI
 pip install git+https://github.com/DelinQu/rspy
 # pip install rspy is unavailable now
 ```
-It's recommended to clone the code and run the demo files in the `rspy` folder. In our implementation, we use [open-mmlab/mmflow](https://github.com/open-mmlab/mmflow) to caculate the optical flow, and please refer to the [installation](https://github.com/open-mmlab/mmflow/blob/master/docs/en/install.md) for optical flow support.
+It's recommended to clone the code and run the demo files in the `rspy` folder. In our implementation, we use [open-mmlab/mmflow](https://github.com/open-mmlab/mmflow) to calculate the optical flow. Please refer to the [installation](https://github.com/open-mmlab/mmflow/blob/master/docs/en/install.md) for optical flow support, and check the [requirements.txt](https://github.com/DelinQu/rspy/blob/master/requirements.txt) to satisfy the dependency.
 
 ### Usage
 
-[`rspy`](https://github.com/rspy/rspy/blob/master/rspy) contains `linear`, `quadratic` and `cubic` models for faster rolling shutetr correction. The `solver` is the core of the rspy, which receives the optical flow fields and return the correction field. The `feats_sampling` function warps the RS image back to GS one.
+[`rspy`](https://github.com/rspy/rspy/blob/master/rspy) contains `linear`, `quadratic`, and `cubic` models for faster rolling shutter correction. The `solver` is the core of the `rspy`, which receives the optical flow fields and returns the correction field. The `feats_sampling` function warps the RS image back to GS one.
 
 <details>
 <summary>0. Hyparameters </summary>
@@ -85,7 +85,14 @@ rsc_image = feats_sampling(rs_image, -F0tau)
 </details>
 
 ## 🍀 Demo
-We provided a demo for rolling shutter correction in `rspy`， which read the images from the `demo` folder and save the results in the `out` folder. The demo can be run by the following command:
+We provided a demo for rolling shutter correction in `rspy`， which read the images from the `demo` folder and save the results in the `out` folder. Before that, you must download a [optical flow model](https://github.com/open-mmlab/mmflow#benchmark-and-model-zoo) by `mim`:
+
+```bash
+mim download mmflow --config raft_8x2_100k_mixed_368x768 
+```
+
+It will be automatically downloaded to `~/.cache/mim`. Then, the demo can be run by the following command.
+
 ```bash
 python rspy/demo.py --model=linear
 
@@ -93,7 +100,7 @@ python rspy/demo.py --model=qudratic
 
 python rspy/demo.py --model=cubic
 ```
-You can also use your own images with a sutable `gamma` and `tau` to get a satisfactory result.
+You can also use your own images with a suitable `gamma` and `tau` to get a satisfactory result.
 
 ## 📈 Releases
 
