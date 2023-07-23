@@ -29,7 +29,7 @@ The `core` implementation of [Fast Rolling Shutter Correction in the Wild, TPAMI
 ## Installation
 
 ```bash
-pip install git@github.com:DelinQu/rspy.git
+pip install git+https://github.com/DelinQu/rspy
 # pip install rspy is unavailable now
 ```
 It's recommended to clone the code and run the demo files in the `rspy` folder. In our implementation, we use [open-mmlab/mmflow](https://github.com/open-mmlab/mmflow) to caculate the optical flow, and please refer to the [installation](https://github.com/open-mmlab/mmflow/blob/master/docs/en/install.md) for optical flow support.
