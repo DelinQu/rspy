@@ -96,7 +96,7 @@ It will be automatically downloaded to `~/.cache/mim`. Then, the demo can be run
 ```bash
 python rspy/demo.py --model=linear
 
-python rspy/demo.py --model=qudratic
+python rspy/demo.py --model=quadratic
 
 python rspy/demo.py --model=cubic
 ```
